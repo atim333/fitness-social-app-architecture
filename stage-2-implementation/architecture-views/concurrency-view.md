@@ -161,41 +161,6 @@
 - **Предиктивное масштабирование:** Перед запланированными событиями
 - **По расписанию:** Увеличение мощности в часы пик
 
-**Конфигурация Kubernetes HPA:**
-
-apiVersion: autoscaling/v2
-
-kind: HorizontalPodAutoscaler
-
-spec:
-scaleTargetRef:
-apiVersion: apps/v1
-kind: Deployment
-name: registration-worker
-minReplicas: 5
-maxReplicas: 100
-metrics:
-
-    type: Resource
-    resource:
-    name: cpu
-    target:
-    type: Utilization
-    averageUtilization: 70
-
-    type: External
-    external:
-    metric:
-    name: kafka_topic_lag
-    selector:
-    matchLabels:
-    topic: event-registrations
-    target:
-    type: AverageValue
-    averageValue: 10000
-
-
----
 
 ## 3. Обработка потоковых данных с фитнес-устройств
 
@@ -498,7 +463,4 @@ metrics:
 Данная архитектура позволяет системе эффективно обрабатывать массовые события, поддерживать глобальную аудиторию и обеспечивать высокую доступность при любых нагрузках.
 
 
-===============
 
-
-Данная архитектура позволяет системе эффективно обрабатывать массовые события, поддерживать глобальную аудиторию и обеспечивать высокую доступность при любых нагрузках.
