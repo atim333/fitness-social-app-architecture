@@ -146,11 +146,12 @@ spec:
     external:
       metric:
         name: kafka_consumer_lag
+        selector:
+          matchLabels:
+            topic: event-registrations
       target:
         type: AverageValue
         averageValue: 10000
-
-
 
 **Для API Gateway:**
 - **Базовое количество:** 10 инстансов
@@ -487,5 +488,3 @@ spec:
 8. **Cost optimization:** Постоянный контроль и оптимизация расходов
 
 Данная архитектура обеспечивает масштабирование до миллионов пользователей, соответствие регуляторным требованиям и эффективную работу в глобальном масштабе.
-
-====================
