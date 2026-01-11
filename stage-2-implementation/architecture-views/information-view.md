@@ -389,6 +389,103 @@
 - `ReservationExpired` (публикуется при истечении TTL)
 - `ReservationReleased` (публикуется при освобождении товара)
 
+
+### 4.5 Агрегат Order (Event Sourced)
+
+**Описание:** Управление жизненным циклом заказа с полной аудируемостью через Event Sourcing.
+
+**Реализация:** Akka Actor Model для гарантированной однопоточной обработки команд.
+
+**Состав агрегата:**
+
+**Сущности:**
+- OrderLine (сущность): позиция заказа
+- OrderStatus (сущность): статусный workflow
+- OrderPayment (сущность): связь с платежом
+
+**Объекты-значения:**
+- OrderTotal:
+  - Атрибуты: subtotal, tax, shipping, discount, finalAmount
+  - Бизнес-правила: итоговая сумма не может быть отрицательной
+
+**Инварианты агрегата:**
+- Сумма заказа должна равняться сумме всех позиций + доставка - скидки
+- Статус заказа может меняться только по разрешенным переходам
+
+**Команды:**
+- CreateOrderCommand(customerId, items, shippingAddress)
+- CancelOrderCommand(reason)
+- ConfirmOrderCommand()
+- ProcessPaymentCommand(paymentId)
+
+**Доменные события:**
+- OrderCreated
+- OrderCancelled
+- OrderConfirmed
+- OrderPaymentConfirmed
+
+**Read Models (CQRS):**
+- OrderSummaryView - для UI приложения
+- OrderAnalyticsView - для аналитических запросов
+- CustomerOrderHistory - история заказов клиента
+
+### 4.6 Агрегат Payment (Event Sourced)
+
+**Описание:** Обработка финансовых операций с полным аудитом изменений.
+
+**Состав агрегата:**
+
+**Сущности:**
+- Transaction (сущность): финансовая транзакция
+- PaymentMethod (сущность): способ оплаты
+- Refund (сущность): информация о возврате
+
+**Объекты-значения:**
+- PaymentAmount:
+  - Атрибуты: amount, currency
+  - Бизнес-правила: сумма положительная, валюта из поддерживаемых
+
+**Инварианты агрегата:**
+- Платеж должен быть связан с заказом
+- Сумма возврата не может превышать сумму платежа
+
+**Команды:**
+- ProcessPaymentCommand(orderId, amount, method)
+- RefundPaymentCommand(amount, reason)
+
+**Доменные события:**
+- PaymentCompleted
+- PaymentFailed
+- PaymentRefunded
+- ChargebackInitiated
+
+### 4.7 Агрегат ProductStock (Event Sourced)
+
+**Описание:** Управление остатками товаров с резервированием.
+
+**Состав агрегата:**
+
+**Сущности:**
+- StockItem (сущность): остаток по товару
+- Reservation (сущность): резервирование товара
+
+**Объекты-значения:**
+- StockQuantity:
+  - Атрибуты: available, reserved, inTransit
+  - Бизнес-правила: доступное количество не может быть отрицательным
+
+**Инварианты агрегата:**
+- Количество зарезервированного товара не может превышать доступное количество
+- Резервирование имеет ограниченное время жизни (TTL)
+
+**Команды:**
+- ReserveStockCommand(orderId, items)
+- ReleaseStockCommand(reservationId)
+
+**Доменные события:**
+- StockReserved
+- StockReleased
+- StockLevelAdjusted
 ---
 
 ## 5. Поддерживающие домены (Supporting Domains)
