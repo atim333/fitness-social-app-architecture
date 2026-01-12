@@ -7,6 +7,7 @@
 - `stage-1-concept/` - Концепция архитектуры
 - `stage-2-implementation/` - Детали реализации
 - `stage-3-final/` - Анализ рисков и стоимости
-- `diagrams/` - Диаграммы архитектуры
-- `presentation/` - Презентация для защиты
-- `references/` - Дополнительные материалы
+
+## Презентация для защиты  
+https://docs.google.com/presentation/d/1W32NbcON1NioxPn5h-ZoAnt-IKLdMtvthQJPYV7ts_w/edit?slide=id.p#slide=id.p
+  
