@@ -9,5 +9,5 @@
 - `stage-3-final/` - Анализ рисков и стоимости
 
 ## Презентация для защиты  
-https://docs.google.com/presentation/d/1W32NbcON1NioxPn5h-ZoAnt-IKLdMtvthQJPYV7ts_w/edit?slide=id.p#slide=id.p
+https://docs.google.com/presentation/d/1W32NbcON1NioxPn5h-ZoAnt-IKLdMtvthQJPYV7ts_w/edit?usp=sharing
   
