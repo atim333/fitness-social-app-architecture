@@ -311,7 +311,7 @@
 - `TrainingCompleted` → обновление моделей на основе результатов
 
 ---
-## 5. Event Management & Order Processing Context (Новый домен из курсовой)
+## 5. Event Management & Order Processing Context 
 
 ### 5.1 Управление заказами с Event Sourcing (Агрегат `Order`)
 
@@ -388,7 +388,7 @@
 - `PaymentFailed` → уведомление пользователя, повторная попытка
 - `PaymentRefunded` → возврат средств, обновление финансовой отчетности
 
-## 6. Inventory Management Context (Новый домен из курсовой)
+## 6. Inventory Management Context 
 
 ### 6.1 Управление запасами (Агрегат `ProductStock`)
 
@@ -427,7 +427,7 @@
 - `LowStockAlert` → уведомление о необходимости пополнения
 - `InventoryUpdated` → синхронизация между регионами, обновление кэшей
 
-## 7. Analytics & Reporting Context (Новый домен из курсовой)
+## 7. Analytics & Reporting Context 
 
 ### 7.1 CQRS для аналитики (Read Models)
 
